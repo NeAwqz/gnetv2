@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/panjf2000/gnet/v2/pkg/logging"
+	"github.com/panjf2000/gnet/v2/pkg/tls"
 )
 
 // Option is a function that will set up option.
@@ -127,6 +128,9 @@ type Options struct {
 	// Don't enable it unless you are 100% sure what you are doing.
 	// Note that this option is only available for stream-oriented protocol.
 	EdgeTriggeredIO bool
+
+	// TLSConfig support TLS
+	TLSConfig *tls.Config
 }
 
 // WithOptions sets up all options.
@@ -259,5 +263,12 @@ func WithMulticastInterfaceIndex(idx int) Option {
 func WithEdgeTriggeredIO(et bool) Option {
 	return func(opts *Options) {
 		opts.EdgeTriggeredIO = et
+	}
+}
+
+// WithTLSConfig sets support TLS
+func WithTLSConfig(tlsConfig *tls.Config) Option {
+	return func(opts *Options) {
+		opts.TLSConfig = tlsConfig
 	}
 }
